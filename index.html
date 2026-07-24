@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>錢帳本｜細分你的每一筆錢</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="loginScreen">
+  <div class="passbook-cover">
+    <div class="cover-eyebrow">PASSBOOK · 錢帳本</div>
+    <div class="seal-mark">帳</div>
+    <div class="cover-title">錢帳本</div>
+    <div class="cover-sub">把每一分錢，分進它該去的地方。<br>吃飯錢是吃飯錢，車資是車資。</div>
+    <input type="text" class="name-input" id="loginNameInput" placeholder="輸入你的名字開始使用">
+    <button class="login-btn" id="googleLoginBtn">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.56 2.68-3.87 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.03l2.99-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.46 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.97l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"/></svg>
+      使用 Google 登入
+    </button>
+    <div class="login-note">（此為本機模擬登入示範，尚未串接真實 Google OAuth，若需正式帳號系統可再另外設定用戶端 ID）</div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="appShell">
+  <header class="app-header">
+    <div class="greet">你好，<b id="userNameDisplay">同學</b></div>
+    <div class="header-right">
+      <div class="total-label">目前總資產</div>
+      <div class="total-amount mono">$<span id="totalBalance">0</span></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ---------- 記帳 PAGE ---------- -->
+    <section class="page active" id="page-record">
+      <div class="section-title">快速記一筆</div>
+      <div class="ledger-card">
+        <div class="type-toggle">
+          <button class="type-btn" data-type="expense" data-active="true">支出</button>
+          <button class="type-btn" data-type="income" data-active="false">收入</button>
+          <button class="type-btn" data-type="transfer" data-active="false">轉帳</button>
+        </div>
+
+        <div class="field-label">金額</div>
+        <input type="number" class="amount-input" id="txAmount" placeholder="0" inputmode="decimal">
+
+        <div class="row-2" id="acctFieldWrap">
+          <div>
+            <div class="field-label" id="fromLabel">存錢處</div>
+            <select id="txAccount"></select>
+          </div>
+          <div id="toAccountWrap" style="display:none;">
+            <div class="field-label">轉入</div>
+            <select id="txToAccount"></select>
+          </div>
+        </div>
+
+        <div id="categoryWrap">
+          <div class="field-label">用途</div>
+          <div class="cat-pill-wrap" id="txCatWrap"></div>
+        </div>
+
+        <div class="field-label">備註（選填）</div>
+        <input type="text" id="txNote" placeholder="午餐、公車、衛生紙⋯⋯">
+
+        <button class="submit-btn" id="submitTxBtn">蓋章記錄</button>
+      </div>
+
+      <div class="section-title">最近紀錄</div>
+      <div id="txList"></div>
+    </section>
+
+    <!-- ---------- 圖表 PAGE ---------- -->
+    <section class="page" id="page-chart">
+      <div class="section-title">各存錢處餘額</div>
+      <div class="balance-grid" id="balanceGrid"></div>
+
+      <div class="section-title">本月支出去哪了</div>
+      <div class="chart-card">
+        <canvas id="pieChart" height="220"></canvas>
+        <div id="pieEmptyHint" class="empty-hint" style="display:none;">本月還沒有支出紀錄</div>
+      </div>
+
+      <div class="section-title">分項預算進度</div>
+      <div class="chart-card" id="budgetProgressWrap"></div>
+    </section>
+
+    <!-- ---------- 設定 PAGE ---------- -->
+    <section class="page" id="page-settings">
+      <div class="section-title">個人設定</div>
+      <div class="settings-card">
+        <div class="settings-label">顯示名稱</div>
+        <input type="text" id="settingsNameInput" style="margin-bottom:16px;">
+        <div class="settings-label">主題色</div>
+        <div class="theme-swatches" id="themeSwatches"></div>
+      </div>
+
+      <div class="section-title">存錢處管理</div>
+      <div class="settings-card" id="acctManageCard"></div>
+      <button class="small-btn" id="addAcctBtn" style="width:100%;margin-bottom:8px;">＋ 新增存錢處</button>
+
+      <div class="section-title">分項管理</div>
+      <div class="settings-card">
+        <div class="settings-label">選擇存錢處來管理它的用途分項</div>
+        <select id="catManageAcctSelect" style="margin-bottom:12px;"></select>
+        <div class="cat-manage-list" id="catManageList"></div>
+        <button class="small-btn" id="addCatBtn" style="width:100%;margin-top:10px;">＋ 新增分項</button>
+      </div>
+
+      <div class="section-title">資料</div>
+      <div class="settings-card">
+        <button class="small-btn danger-text" id="resetDataBtn" style="width:100%;">清空所有資料重新開始</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn" data-page="page-record" data-active="true"><span class="nav-ic">✏️</span>記帳</button>
+    <button class="nav-btn" data-page="page-chart" data-active="false"><span class="nav-ic">📊</span>圖表</button>
+    <button class="nav-btn" data-page="page-settings" data-active="false"><span class="nav-ic">⚙️</span>設定</button>
+  </nav>
+</div>
+
+<div class="stamp-fx" id="stampFx">✓</div>
+
+<!-- Add account modal -->
+<div class="modal-bg" id="acctModal">
+  <div class="modal-box">
+    <span class="modal-close" id="closeAcctModal">×</span>
+    <div class="modal-title">新增存錢處</div>
+    <div class="field-label">名稱</div>
+    <input type="text" id="newAcctName" placeholder="例如：銀行帳戶、零用錢包" style="margin-bottom:14px;">
+    <div class="field-label">起始金額</div>
+    <input type="number" id="newAcctBalance" placeholder="0" style="margin-bottom:14px;">
+    <div class="field-label">選一個圖示</div>
+    <div class="icon-choice-wrap" id="newAcctIconWrap"></div>
+    <button class="submit-btn" id="confirmAddAcctBtn" style="margin-top:18px;">建立存錢處</button>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
