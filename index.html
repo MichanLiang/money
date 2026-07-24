@@ -16,7 +16,6 @@
     <div class="seal-mark">帳</div>
     <div class="cover-title">錢帳本</div>
     <div class="cover-sub">把每一分錢，分進它該去的地方。<br>吃飯錢是吃飯錢，車資是車資。</div>
-    <input type="text" class="name-input" id="loginNameInput" placeholder="輸入你的名字開始使用">
     <button class="login-btn" id="googleLoginBtn">
       <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.56 2.68-3.87 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.03l2.99-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.46 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.97l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"/></svg>
       使用 Google 登入
@@ -139,6 +138,16 @@
     <div class="field-label">選一個圖示</div>
     <div class="icon-choice-wrap" id="newAcctIconWrap"></div>
     <button class="submit-btn" id="confirmAddAcctBtn" style="margin-top:18px;">建立存錢處</button>
+  </div>
+</div>
+
+<!-- Name modal -->
+<div class="modal-bg" id="nameModal">
+  <div class="modal-box">
+    <div class="modal-title">怎麼稱呼你？</div>
+    <div class="field-label">你的名字</div>
+    <input type="text" id="nameModalInput" placeholder="輸入你的名字">
+    <button class="submit-btn" id="confirmNameBtn" style="margin-top:14px;">確認</button>
   </div>
 </div>
 
