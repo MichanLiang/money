@@ -1,4 +1,8 @@
 import { auth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from './firebase.js';
+import {
+  signInWithRedirect,
+  getRedirectResult,
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import { getState, save, loadFromFirestore } from './state.js';
 
 const loginScreen = document.getElementById('loginScreen');
@@ -16,6 +20,17 @@ export function initAuth(onEnter) {
     }
   });
 
+  getRedirectResult(auth).then(async (result) => {
+    if (result) {
+      const user = result.user;
+      await loadFromFirestore(user.uid, user.displayName);
+      enterApp();
+      onEnter();
+    }
+  }).catch((error) => {
+    console.error('Redirect 登入失敗:', error);
+  });
+
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       await loadFromFirestore(user.uid, user.displayName);
@@ -27,11 +42,7 @@ export function initAuth(onEnter) {
 
 async function doGoogleLogin(onEnter) {
   try {
-    const result = await signInWithPopup(auth, new GoogleAuthProvider());
-    const user = result.user;
-    await loadFromFirestore(user.uid, user.displayName);
-    enterApp();
-    onEnter();
+    await signInWithRedirect(auth, new GoogleAuthProvider());
   } catch (error) {
     console.error('登入失敗:', error);
     alert('登入失敗：' + error.message);
