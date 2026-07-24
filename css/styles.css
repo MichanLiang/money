@@ -40,11 +40,15 @@ body {
 /* ===== LOGIN ===== */
 #loginScreen {
   min-height: 100vh;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background: var(--navy-deep);
   padding: 24px;
+}
+
+#loginScreen.loading {
+  display: flex;
 }
 
 .login-card {

@@ -1,4 +1,4 @@
-import { auth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from './firebase.js';
+import { auth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from './firebase.js';
 import {
   signInWithRedirect,
   getRedirectResult,
@@ -12,6 +12,7 @@ const nameModalInput = document.getElementById('nameModalInput');
 const confirmNameBtn = document.getElementById('confirmNameBtn');
 
 let pendingOnEnter = null;
+let authResolved = false;
 
 export function initAuth(onEnter) {
   pendingOnEnter = onEnter;
@@ -25,12 +26,19 @@ export function initAuth(onEnter) {
     if (e.key === 'Enter') confirmName();
   });
 
+  document.getElementById('logoutBtn').addEventListener('click', doLogout);
+
   getRedirectResult(auth).catch((error) => {
     console.error('Redirect error:', error);
   });
 
   onAuthStateChanged(auth, async (user) => {
-    if (!user) return;
+    if (authResolved) return;
+    if (!user) {
+      authResolved = true;
+      showLogin();
+      return;
+    }
     try {
       await loadFromFirestore(user.uid, user.displayName);
       const state = getState();
@@ -41,11 +49,18 @@ export function initAuth(onEnter) {
         enterApp();
         if (pendingOnEnter) pendingOnEnter();
       }
+      authResolved = true;
     } catch (error) {
       console.error('載入資料失敗:', error);
-      alert('載入資料失敗：' + error.message);
+      authResolved = true;
+      showLogin();
     }
   });
+}
+
+function showLogin() {
+  loginScreen.style.display = 'flex';
+  appShell.style.display = 'none';
 }
 
 function showNameModal() {
@@ -71,6 +86,13 @@ async function doGoogleLogin() {
     console.error('登入失敗:', error);
     alert('登入失敗：' + error.message);
   }
+}
+
+async function doLogout() {
+  if (!confirm('確定要登出嗎？')) return;
+  await signOut(auth);
+  authResolved = false;
+  showLogin();
 }
 
 function enterApp() {
