@@ -34,20 +34,16 @@ function defaultState() {
 let state = defaultState();
 let userId = null;
 
-function getUserId(name) {
-  return 'user_' + name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-}
-
-export async function loadFromFirestore(name) {
-  if (!name) return false;
-  userId = getUserId(name);
+export async function loadFromFirestore(uid, displayName) {
+  if (!uid) return false;
+  userId = uid;
   const docRef = doc(db, 'users', userId);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     state = docSnap.data();
   } else {
     state = defaultState();
-    state.user.name = name;
+    state.user.name = displayName || '';
     await saveToFirestore();
   }
   return true;
