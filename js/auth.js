@@ -34,7 +34,7 @@ async function doGoogleLogin(onEnter) {
     onEnter();
   } catch (error) {
     console.error('登入失敗:', error);
-    alert('登入失敗，請稍後再試');
+    alert('登入失敗：' + error.message);
   }
 }
 
