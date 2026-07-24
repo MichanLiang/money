@@ -1,6 +1,14 @@
 import { uid, todayISO, fmt, shake, playStamp } from './utils.js';
 import { getState, save, accountBalance } from './state.js';
 
+const icons = {
+  expense: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  income: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  transfer: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 1 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 23-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>',
+  tag: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>',
+  wallet: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>',
+};
+
 let currentType = 'expense';
 let selectedAccountId = null;
 let selectedCategoryId = null;
@@ -40,10 +48,10 @@ function fillAccountSelects() {
   const txAcc = document.getElementById('txAccount');
   const txTo = document.getElementById('txToAccount');
   txAcc.innerHTML = state.accounts
-    .map((a) => `<option value="${a.id}">${a.icon} ${a.name}</option>`)
+    .map((a) => `<option value="${a.id}">${a.name}</option>`)
     .join('');
   txTo.innerHTML = state.accounts
-    .map((a) => `<option value="${a.id}">${a.icon} ${a.name}</option>`)
+    .map((a) => `<option value="${a.id}">${a.name}</option>`)
     .join('');
   if (selectedAccountId) txAcc.value = selectedAccountId;
   if (!txAcc.dataset.bound) {
@@ -169,12 +177,10 @@ export function renderTxList() {
     row.className = 'tx-item';
     const icon =
       t.type === 'transfer'
-        ? '🔁'
+        ? icons.transfer
         : cat
-          ? '🏷️'
-          : acc
-            ? acc.icon
-            : '💰';
+          ? icons.tag
+          : icons.wallet;
     const title =
       t.type === 'transfer'
         ? `${acc ? acc.name : ''} → ${toAcc ? toAcc.name : ''}`
