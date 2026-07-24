@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap');
 
 :root {
   --bg: #FAF8F5;
@@ -27,7 +27,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -45,10 +45,6 @@ body {
   justify-content: center;
   background: var(--navy-deep);
   padding: 24px;
-}
-
-#loginScreen.loading {
-  display: flex;
 }
 
 .login-card {
@@ -71,16 +67,16 @@ body {
 }
 
 .login-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
   font-size: 28px;
   color: #fff;
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
 }
 
 .login-sub {
   color: rgba(255,255,255,0.45);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
   margin-bottom: 36px;
 }
@@ -92,9 +88,9 @@ body {
   border: none;
   border-radius: var(--radius);
   padding: 14px 20px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -132,7 +128,7 @@ body {
 }
 
 .greet {
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255,255,255,0.5);
 }
 
@@ -141,14 +137,11 @@ body {
   font-weight: 600;
 }
 
-.header-total {
-  text-align: right;
-}
+.header-total { text-align: right; }
 
 .total-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   color: var(--gold);
   font-weight: 600;
   margin-bottom: 4px;
@@ -196,10 +189,10 @@ main {
 }
 
 .section-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
   font-size: 16px;
-  font-weight: 400;
-  margin: 20px 0 10px;
+  margin: 24px 0 12px;
   color: var(--text);
 }
 
@@ -209,7 +202,7 @@ main {
 .card {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 20px;
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
@@ -218,7 +211,7 @@ main {
 .type-toggle {
   display: flex;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   background: var(--bg);
   border-radius: var(--radius-sm);
   padding: 4px;
@@ -226,7 +219,7 @@ main {
 
 .type-btn {
   flex: 1;
-  padding: 8px;
+  padding: 9px;
   border-radius: 6px;
   border: none;
   background: transparent;
@@ -234,7 +227,7 @@ main {
   font-size: 13px;
   cursor: pointer;
   color: var(--text-secondary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
   transition: all 0.15s ease;
 }
 
@@ -258,26 +251,26 @@ main {
 
 /* ===== FORM ===== */
 .field-label {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text-secondary);
-  margin: 12px 0 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  margin: 20px 0 8px;
 }
 
 .field-label:first-child { margin-top: 0; }
+
+.field-group { margin-bottom: 4px; }
 
 input[type=number],
 input[type=text],
 input[type=date],
 select {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-family: 'Noto Sans TC', sans-serif;
   background: var(--surface);
   color: var(--text);
   transition: border-color 0.15s ease;
@@ -292,9 +285,9 @@ select:focus {
 
 .amount-input {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  padding: 8px 4px;
+  padding: 12px 4px;
   border: none;
   border-bottom: 2px solid var(--border);
   border-radius: 0;
@@ -309,9 +302,7 @@ select:focus {
   box-shadow: none;
 }
 
-.amount-input::placeholder {
-  color: var(--text-muted);
-}
+.amount-input::placeholder { color: var(--text-muted); }
 
 .row-2 {
   display: grid;
@@ -323,14 +314,15 @@ select:focus {
 .cat-pill-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .cat-pill {
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: 100px;
   border: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   background: var(--surface);
@@ -338,9 +330,7 @@ select:focus {
   transition: all 0.12s ease;
 }
 
-.cat-pill:hover {
-  border-color: var(--text-muted);
-}
+.cat-pill:hover { border-color: var(--text-muted); }
 
 .cat-pill[data-active="true"] {
   background: var(--text);
@@ -355,55 +345,47 @@ select:focus {
 }
 
 .cat-pill-input {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border-radius: 100px;
   border: 1px solid var(--accent);
-  font-size: 12px;
-  width: 120px;
+  font-size: 13px;
+  width: 130px;
   background: var(--surface);
 }
 
 /* ===== BUTTONS ===== */
 .submit-btn {
   width: 100%;
-  margin-top: 16px;
-  padding: 12px;
+  margin-top: 24px;
+  padding: 14px;
   border: none;
   border-radius: var(--radius-sm);
   background: var(--navy-deep);
   color: #fff;
   font-weight: 600;
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-family: 'Noto Sans TC', sans-serif;
   cursor: pointer;
   transition: all 0.12s ease;
 }
 
-.submit-btn:hover {
-  background: var(--navy);
-}
-
-.submit-btn:active {
-  transform: scale(0.98);
-}
+.submit-btn:hover { background: var(--navy); }
+.submit-btn:active { transform: scale(0.98); }
 
 .small-btn {
   padding: 10px 16px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
   cursor: pointer;
   color: var(--text-secondary);
   transition: all 0.12s ease;
 }
 
-.small-btn:hover {
-  background: var(--surface-hover);
-}
-
+.small-btn:hover { background: var(--surface-hover); }
 .danger-text { color: var(--accent); }
 
 /* ===== STAMP EFFECT ===== */
@@ -417,7 +399,8 @@ select:focus {
   border: 4px solid var(--accent);
   border-radius: 50%;
   color: var(--accent);
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
   font-size: 28px;
   display: flex;
   align-items: center;
@@ -461,21 +444,9 @@ select:focus {
   color: var(--text-secondary);
 }
 
-.tx-mid {
-  flex: 1;
-  min-width: 0;
-}
-
-.tx-cat {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.tx-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.tx-mid { flex: 1; min-width: 0; }
+.tx-cat { font-size: 14px; font-weight: 500; }
+.tx-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
 .tx-amt {
   font-family: 'JetBrains Mono', monospace;
@@ -506,7 +477,7 @@ select:focus {
   text-align: center;
   padding: 32px 16px;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
 }
 
@@ -522,20 +493,12 @@ select:focus {
   background: var(--surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 16px;
   box-shadow: var(--shadow-sm);
 }
 
-.bal-card .acct-icon {
-  margin-bottom: 8px;
-  color: var(--text-secondary);
-}
-
-.bal-card .acct-name {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
+.bal-card .acct-icon { margin-bottom: 8px; color: var(--text-secondary); }
+.bal-card .acct-name { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
 
 .bal-card .val {
   font-family: 'JetBrains Mono', monospace;
@@ -548,7 +511,7 @@ select:focus {
   background: var(--surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 20px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -592,18 +555,13 @@ select:focus {
 }
 
 .settings-label {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--text-secondary);
   margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
-.theme-swatches {
-  display: flex;
-  gap: 10px;
-}
+.theme-swatches { display: flex; gap: 10px; }
 
 .swatch {
   width: 32px;
@@ -630,8 +588,8 @@ select:focus {
 .icon-choice-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .icon-choice {
@@ -643,7 +601,6 @@ select:focus {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 18px;
   background: var(--surface);
   transition: all 0.12s ease;
 }
@@ -670,8 +627,8 @@ select:focus {
 
 .cat-manage-item input {
   flex: 1;
-  padding: 8px 10px;
-  font-size: 13px;
+  padding: 10px 12px;
+  font-size: 14px;
 }
 
 .cat-manage-item input.budget-num { max-width: 100px; }
@@ -702,9 +659,9 @@ nav.bottom-nav {
   align-items: center;
   gap: 3px;
   color: var(--text-muted);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
   transition: color 0.12s ease;
 }
 
@@ -749,7 +706,8 @@ nav.bottom-nav {
 }
 
 .modal-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
   font-size: 18px;
   margin-bottom: 16px;
 }
